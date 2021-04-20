@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/auth';
 import { AngularFireDatabase } from '@angular/fire/database';
 import { Observable } from 'rxjs';
-import { RegisterData } from '../../models/authModels';
+import { LoginData, RegisterData, UserData } from '../../models/authModels';
 
 @Injectable({
   providedIn: 'root'
@@ -38,7 +38,7 @@ export class AuthenticationService {
   }
   // Metodo publico para crear un nuevo usuario
   // Metodo publico para crear iniciar la sesion de un usuario
-  public async loginUser(userData: any): Promise<any> {
+  public async loginUser(userData: LoginData): Promise<any> {
     return await this.userAuth.signInWithEmailAndPassword(userData.email, userData.password).then((returnedData) => {
       return {status: 'success', data: returnedData};
     }).catch((error) => {
@@ -47,8 +47,8 @@ export class AuthenticationService {
   }
   // Metodo publico para crear iniciar la sesion de un usuario
   // Extrayendo datos del usuario
-  public returnUserData(userData: any): Observable<ClientData> {
-    return this.realtimeDatabase.object<ClientData>(`clientManagerPlatform/users/adminUsers/${userData}/`).valueChanges();
+  public returnUserData(userData: any): Observable<UserData> {
+    return this.realtimeDatabase.object<UserData>(`clientManagerPlatform/users/adminUsers/${userData}/`).valueChanges();
   }
   // Extrayendo datos del usuario
   // Funcion para recuperar las cuentas del usuario

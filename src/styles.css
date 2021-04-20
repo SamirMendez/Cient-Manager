@@ -32,3 +32,11 @@
     border-bottom: 2px solid #3582AD;
     background-color: transparent;
 }
+.modalIcon{
+    width: 50%;
+    margin: auto;
+    display: block;
+}
+.cursorPointer{
+    cursor: pointer;
+}

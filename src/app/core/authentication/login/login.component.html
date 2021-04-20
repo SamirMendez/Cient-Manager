@@ -1,1 +1,60 @@
-<p>login works!</p>
+<div class="d-flex flex-column flex-md-row align-items-center p-3 px-md-4 mb-3">
+    <h5 class="my-0 mr-md-auto font-weight-normal text-dark">Client-Manager Dashboard</h5>
+    <nav class="my-2 my-md-0 mr-md-3"></nav>
+    <a class="btn blueBackground text-white" (click)="goToRegister()">Registrarme como empresa</a>
+</div>
+<div class="container-fluid">
+    <div class="row justify-content-center">
+        <div class="col-11 col-sm-11 col-md-11 col-lg-5 col-xl-4">
+            <img src="../../../../assets/ilustrations/undraw_Add_friends_wa2a.svg" alt="Client-Manager" title="Client-Manager" class="ilustration-2">
+            <h1 class="text-center text-dark m-0 p-0 mt-4">Iniciar sesión</h1>
+            <p class="text-center lead text-dark m-0 p-0 mt-1">Complete el formulario</p>
+            <form class="mt-3" [formGroup]="loginForm">
+                <div class="form-group mt-3">
+                    <label for="exampleInputEmail1" class="text-dark">Correo electrónico</label>
+                    <input type="email" class="form-control customInput" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="some@example.com" formControlName="email">
+                </div>
+                <small id="emailHelp" class="form-text text-muted">Nunca compartiremos tu dirección de correo con nadie más.</small>
+                <div class="form-group mt-3">
+                    <label for="exampleInputPassword1" class="text-dark">Password</label>
+                    <input type="password" class="form-control customInput" id="exampleInputPassword1" placeholder="••••••••••••••••••••" formControlName="password">
+                </div>
+            </form>
+            <h5 class="text-center mt-4 text-dark cursorPointer" (click)="openPasswordModal(passwordModal)">¿Olvidaste tu contraseña?</h5>
+            <button class="btn text-center text-white blueBackground loginButton mt-4 mb-5 btn-lg btn-block" [disabled]="loginForm.invalid" (click)="loginUser(loginModal)">Iniciar sesión</button>
+        </div>
+    </div>
+</div>
+<!-- Modals -->
+<ng-template #loginModal>
+    <div class="modal-header">
+        <h4 class="modal-title pull-left"></h4>
+        <button type="button" class="close pull-right" aria-label="Close" (click)="modalReference.hide()"><span aria-hidden="true">&times;</span></button>
+    </div>
+    <div class="modal-body">
+        <img class="modalIcon mt-5" src="{{modalData.modalIcon}}" alt="Logo">
+        <h2 class="text-center text-dark mt-4">{{modalData.modalTitle}}</h2>
+        <p class="text-center mt-3">{{modalData.modalDescription}}</p>        
+        <button class="btn btn-block btn-lg blueBackground text-center  text-white mt-2 mb-2" (click)="goToPanel()">Aceptar</button>
+    </div>
+</ng-template>
+<ng-template #passwordModal>
+    <div class="modal-header">
+        <h4 class="modal-title pull-left"></h4>
+        <button type="button" class="close pull-right" aria-label="Close" (click)="modalReference.hide()"><span aria-hidden="true">&times;</span></button>
+    </div>
+    <div class="modal-body">
+        <img class="modalIcon mt-5" src="../../../../assets/ilustrations/undraw_my_password_d6kg.svg" alt="Logo">
+        <h2 class="text-center text-dark mt-4">{{modalData.modalTitle}}</h2>
+        <p class="text-center mt-3">{{modalData.modalDescription}}</p>
+        <form [formGroup]="passwordForm">
+            <div class="form-group">
+                <label for="exampleInputEmail1">Correo electrónico</label>
+                <input type="email" class="form-control customInput" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="someone@example.com" formControlName="email">
+                <small id="emailHelp" class="form-text text-muted">Nunca mostraremos tu dirección de correo a nadie mas.</small>
+            </div>
+        </form>        
+        <button class="btn btn-block btn-lg blueBackground text-center text-white mt-2 mb-2" (click)="recoverPassword()" [disabled]="passwordForm.invalid">Enviar enlace</button>
+    </div>
+</ng-template>
+<!-- Modals -->
