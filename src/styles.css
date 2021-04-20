@@ -12,3 +12,23 @@
 .blueFont{
     color: #3582AD !important;
 }
+.ilustration-1{
+    width: 35%;
+    margin: auto;
+    display: block;
+    margin-top: 15vh;
+}
+.ilustration-2{
+    width: 35%;
+    margin: auto;
+    display: block;
+    margin-top: 5vh;
+}
+.customInput{
+    width: 100%;
+    height: 55px;
+    border-radius: 0px;
+    border-style: none;
+    border-bottom: 2px solid #3582AD;
+    background-color: transparent;
+}
