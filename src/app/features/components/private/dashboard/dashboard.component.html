@@ -1,1 +1,24 @@
-<p>dashboard works!</p>
+<div class="d-flex flex-column flex-md-row align-items-center p-3 px-md-4 mb-3 border-bottom shadow-sm">
+    <h5 class="my-0 mr-md-auto font-weight-normal text-dark">Client-Manager Dashboard</h5>
+    <nav class="my-2 my-md-0 mr-md-3"> </nav>
+    <a class="btn blueBackground text-white" (click)="logOut(logOutModal)">Cerrar sesión</a>
+</div>
+<div class="dashboardContainer">
+    <div class="container-fluid">
+        <router-outlet></router-outlet>
+    </div>
+</div>
+<!-- Modals -->
+<ng-template #logOutModal>
+    <div class="modal-header">
+        <h4 class="modal-title pull-left"></h4>
+        <button type="button" class="close pull-right" aria-label="Close" (click)="modalReference.hide()"><span aria-hidden="true">&times;</span></button>
+    </div>
+    <div class="modal-body">
+        <img class="modalIcon mt-5" src="{{modalData.modalIcon}}" alt="Logo">
+        <h2 class="text-center text-dark mt-4">{{modalData.modalTitle}}</h2>
+        <p class="text-center mt-3">{{modalData.modalDescription}}</p>        
+        <button class="btn btn-block btn-lg blueBackground text-center text-white mt-2 mb-2" (click)="goToLogin()">Aceptar</button>
+    </div>
+</ng-template>
+<!-- Modals -->
