@@ -1,0 +1,11 @@
+{
+  "targets": {
+    "client-manager-f5eed": {
+      "hosting": {
+        "Client-Manager": [
+          "client-manager-f5eed"
+        ]
+      }
+    }
+  }
+}
