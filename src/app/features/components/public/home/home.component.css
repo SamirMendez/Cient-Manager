@@ -1,0 +1,12 @@
+.homeIcon{
+    width: 35%;
+    margin: auto;
+    display: block;
+    margin-top: 15vh;
+}
+.homeButton{
+    width: 80%;
+    height: 50px;
+    margin: auto;
+    display: block;
+}
