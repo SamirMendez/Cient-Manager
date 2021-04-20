@@ -1,6 +1,7 @@
 .dashboardContainer{
     width: 100vw;
     height: 90vh;
+    overflow: hidden;
     overflow-x: hidden;
     overflow-y: auto;
 }

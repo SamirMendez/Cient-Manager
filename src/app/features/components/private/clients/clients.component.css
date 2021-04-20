@@ -1,0 +1,38 @@
+.businessName{
+    margin: 0px;
+    padding: 0px;
+    margin-top: 40px;
+    margin-left: 1.5%;
+}
+.businessInfo{
+    margin: 0px;
+    padding: 0px;
+    margin-top: 10px;
+    margin-left: 1.5%;
+}
+.clientsContainer{
+    width: 97%;
+    height: auto;
+    max-height: 65vh;
+    margin: auto;
+    display: block;
+    margin-top: 10px;
+    overflow: hidden;
+    overflow-y: auto;
+}
+.addButton{
+    margin-left: 1.5%;
+}
+.addressContainer{
+    width: 100%;
+    height: 46vh;
+    overflow: hidden;
+    overflow-y: auto;
+}
+.addressDetails{
+    width: 100%;
+    height: auto;
+    max-height: 25vh;
+    overflow: hidden;
+    overflow-y: auto;
+}

@@ -3,14 +3,29 @@ import { AngularFireAuth } from '@angular/fire/auth';
 import { AngularFireDatabase } from '@angular/fire/database';
 import { Observable } from 'rxjs';
 import { LoginData, RegisterData, UserData } from '../../models/authModels';
+import firebase from 'firebase/app';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthenticationService {
+  // Variable para monitorear el estado de autenticacion
+  authState: Observable<firebase.User> = null;
+  // Variable para monitorear el estado de autenticacion
+  constructor(private userAuth: AngularFireAuth, private realtimeDatabase: AngularFireDatabase) {
+    this.checkAuthState();
+  }
 
-  constructor(private userAuth: AngularFireAuth, private realtimeDatabase: AngularFireDatabase) { }
-
+  // Metodo publico para verificar el estado de autenticacion
+  public checkAuthState() {
+    this.userAuth.authState.subscribe((userData: any) => {
+      this.authState = userData;
+    });
+  }
+  get isAuthenticated(): boolean {
+    return this.authState != null;
+  }
+  // Metodo publico para verificar el estado de autenticacion
   // Metodo publico para crear un nuevo usuario
   public async createUser(userData: RegisterData): Promise<any> {
     return await this.userAuth.createUserWithEmailAndPassword(userData.email, userData.password).then((returnedData) => {

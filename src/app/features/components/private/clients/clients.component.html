@@ -1,1 +1,228 @@
-<p>clients works!</p>
+<h1 class="businessName">{{userData?.name}}</h1>
+<h6 class="businessInfo">{{userData?.email}} | Fecha de registro: {{userData?.timeStamp | date: 'shortDate'}}</h6>
+<div class="clientsContainer">
+    <mat-accordion>
+        <mat-expansion-panel class="mb-2" hideToggle *ngFor="let client of clients; let clientPosition = index">
+            <mat-expansion-panel-header>
+                <mat-panel-title>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-person-circle mr-3" viewBox="0 0 16 16">
+                        <path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0z"/>
+                        <path fill-rule="evenodd" d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8zm8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1z"/>
+                    </svg>
+                    {{client?.name}}
+                </mat-panel-title>
+                <mat-panel-description></mat-panel-description>
+            </mat-expansion-panel-header>
+            <h4 class="m-0 p-0">Información del usuario</h4>
+            <h6 class="m-0 p-0 text-secondary">Nombre: {{client?.name}}</h6>
+            <p class="m-0 p-0 mt-2">Fecha de nacimiento: {{client?.birthDay}}</p>
+            <p class="m-0 p-0">Correo electrónico: {{client?.email}}</p>
+            <h5 class="m-0 p-0 mt-3">Listado de direcciones</h5>
+            <div class="addressDetails">
+                <div class="row mt-3">
+                    <div class="col-11 col-sm-11 col-md-11 col-lg-11 col-xl-11">
+                        <div class="card shadow-sm rounded sm mb-2" *ngFor="let address of client.addressList; let addressPosition = index">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-house ml-3 mt-2" viewBox="0 0 16 16">
+                                <path fill-rule="evenodd" d="M2 13.5V7h1v6.5a.5.5 0 0 0 .5.5h9a.5.5 0 0 0 .5-.5V7h1v6.5a1.5 1.5 0 0 1-1.5 1.5h-9A1.5 1.5 0 0 1 2 13.5zm11-11V6l-2-2V2.5a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5z"/>
+                                <path fill-rule="evenodd" d="M7.293 1.5a1 1 0 0 1 1.414 0l6.647 6.646a.5.5 0 0 1-.708.708L8 2.207 1.354 8.854a.5.5 0 1 1-.708-.708L7.293 1.5z"/>
+                            </svg>            
+                            <h6 class="m-0 p-0 mt-2 ml-3 mb-1">{{address?.city}}, Calle {{address?.street}}, número {{address?.number}}</h6>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <button class="btn text-white mt-4 blueBackground mr-3" (click)="showEditionModal(editionModal, client)">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-save mr-3" viewBox="0 0 16 16">
+                    <path d="M2 1a1 1 0 0 0-1 1v12a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H9.5a1 1 0 0 0-1 1v7.293l2.646-2.647a.5.5 0 0 1 .708.708l-3.5 3.5a.5.5 0 0 1-.708 0l-3.5-3.5a.5.5 0 1 1 .708-.708L7.5 9.293V2a2 2 0 0 1 2-2H14a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V2a2 2 0 0 1 2-2h2.5a.5.5 0 0 1 0 1H2z"/>
+                </svg>
+                Editar información de {{client?.name}}
+            </button>
+            <button class="btn text-white mt-4 bg-danger" (click)="showDeleteModal(deleteModal)">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash mr-3" viewBox="0 0 16 16">
+                    <path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6z"/>
+                    <path fill-rule="evenodd" d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1zM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118zM2.5 3V2h11v1h-11z"/>
+                </svg>
+                Eliminar a  {{client?.name}}
+            </button>
+            <ng-template #editionModal>
+                <div class="modal-header">
+                    <h4 class="modal-title pull-left"></h4>
+                    <button type="button" class="close pull-right" aria-label="Close" (click)="modalReference.hide()"><span aria-hidden="true">&times;</span></button>
+                </div>
+                <div class="modal-body">
+                    <h2 class="text-dark mt-2">Editar cliente</h2>
+                    <p class="mt-1">Complete los campos del formulario para editar un nuevo cliente al sistema</p>        
+                    <form [formGroup]="editionForm">
+                        <div class="row justify-content-center">
+                            <div class="col-12 col-sm-12 col-md-12 col-lg-4 col-xl-4">
+                                <div class="form-group">
+                                    <label for="formGroupExampleInput" class="text-dark">Nombre del cliente</label>
+                                    <input type="text" class="form-control customInput" id="formGroupExampleInput" placeholder="Pedro Sosa" formControlName="name">
+                                </div>
+                            </div>
+                            <div class="col-12 col-sm-12 col-md-12 col-lg-4 col-xl-4">
+                                <div class="form-group">
+                                    <label for="exampleInputEmail1" class="text-dark">Correo electrónico</label>
+                                    <input type="email" class="form-control customInput" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="some@example.com" formControlName="email">
+                                </div>
+                            </div>
+                            <div class="col-12 col-sm-12 col-md-12 col-lg-4 col-xl-4">
+                                <div class="form-group">
+                                    <label for="exampleInputEmail1" class="text-dark">Fecha de nacimiento</label>
+                                    <input type="date" class="form-control customInput" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="some@example.com" formControlName="birthDay">
+                                </div>
+                            </div>
+                            <div class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
+                                <h3 class="m-0 p-0 mt-2">Direcciones</h3>
+                                <p class="m-0 p-0">Agregue las direcciones del cliente</p>
+                                <div class="addressContainer" formArrayName="address">
+                                    <div class="row justify-content-center" *ngFor="let address of addressEditionForms.controls; let addressPosition = index" [formGroupName]="addressPosition">
+                                        <div class="col-12 col-sm-12 col-md-12 col-lg-4 col-xl-4">
+                                            <div class="form-group">
+                                                <!-- <label for="formGroupExampleInput" class="text-dark">Nombre del cliente</label> -->
+                                                <input type="address" class="form-control customInput" id="formGroupExampleInput" placeholder="Ciudad" formControlName="city">
+                                            </div>
+                                        </div>
+                                        <div class="col-12 col-sm-12 col-md-12 col-lg-4 col-xl-4">
+                                            <div class="form-group">
+                                                <!-- <label for="exampleInputEmail1" class="text-dark">Correo electrónico</label> -->
+                                                <input type="address" class="form-control customInput" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Calle" formControlName="street">
+                                            </div>
+                                        </div>
+                                        <div class="col-12 col-sm-12 col-md-12 col-lg-2 col-xl-2">
+                                            <div class="form-group">
+                                                <!-- <label for="exampleInputEmail1" class="text-dark">Fecha de nacimiento</label> -->
+                                                <input type="number" class="form-control customInput" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Número" formControlName="number">
+                                            </div>
+                                        </div>
+                                        <div class="col-12 col-sm-12 col-md-12 col-lg-2 col-xl-2">
+                                            <button class="btn btn-lg btn-block bg-danger text-center text-white mt-2 mb-2 mr-3" (click)="deleteEditionAddress(addressPosition)">
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash" viewBox="0 0 16 16">
+                                                    <path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6z"/>
+                                                    <path fill-rule="evenodd" d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1zM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118zM2.5 3V2h11v1h-11z"/>
+                                                </svg>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                    <button class="btn bg-success text-center text-white mt-2 mb-2 mr-3" [disabled]="editionForm.invalid" (click)="updateClient(client)">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-save mr-2" viewBox="0 0 16 16">
+                            <path d="M2 1a1 1 0 0 0-1 1v12a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H9.5a1 1 0 0 0-1 1v7.293l2.646-2.647a.5.5 0 0 1 .708.708l-3.5 3.5a.5.5 0 0 1-.708 0l-3.5-3.5a.5.5 0 1 1 .708-.708L7.5 9.293V2a2 2 0 0 1 2-2H14a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V2a2 2 0 0 1 2-2h2.5a.5.5 0 0 1 0 1H2z"/>
+                        </svg>
+                        Actualizar cliente en el sistema
+                    </button>
+                    <button class="btn blueBackground text-center text-white mt-2 mb-2" (click)="addEditionAddress()">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-house mr-2" viewBox="0 0 16 16">
+                            <path fill-rule="evenodd" d="M2 13.5V7h1v6.5a.5.5 0 0 0 .5.5h9a.5.5 0 0 0 .5-.5V7h1v6.5a1.5 1.5 0 0 1-1.5 1.5h-9A1.5 1.5 0 0 1 2 13.5zm11-11V6l-2-2V2.5a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5z"/>
+                            <path fill-rule="evenodd" d="M7.293 1.5a1 1 0 0 1 1.414 0l6.647 6.646a.5.5 0 0 1-.708.708L8 2.207 1.354 8.854a.5.5 0 1 1-.708-.708L7.293 1.5z"/>
+                        </svg>
+                        Agregar dirección al cliente
+                    </button>
+                </div>
+            </ng-template>
+            <ng-template #deleteModal>
+                <div class="modal-header">
+                    <h4 class="modal-title pull-left"></h4>
+                    <button type="button" class="close pull-right" aria-label="Close" (click)="modalReference.hide()"><span aria-hidden="true">&times;</span></button>
+                </div>
+                <div class="modal-body">
+                    <img class="modalIcon mt-5" src="../../../../../assets/ilustrations/undraw_Travel_mode_re_2lxo.svg" alt="Delete" title="Delete">
+                    <h2 class="text-center text-dark mt-4">Eliminar cliente</h2>
+                    <p class="text-center mt-3">Al presionar inhabilitar cliente, usted estará eliminando del sistema el cliente {{client?.name}}</p>
+                    <button class="btn btn-block btn-lg bg-dark text-center text-white mt-2 mb-2" (click)="deleteClient(client)">Eliminar cliente</button>
+                </div>
+            </ng-template>
+        </mat-expansion-panel>
+    </mat-accordion>
+</div>
+<button class="btn text-white addButton mt-4 blueBackground" (click)="showClientModal(clientModal)">
+    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-person-plus mr-2" viewBox="0 0 16 16">
+        <path d="M6 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm2-3a2 2 0 1 1-4 0 2 2 0 0 1 4 0zm4 8c0 1-1 1-1 1H1s-1 0-1-1 1-4 6-4 6 3 6 4zm-1-.004c-.001-.246-.154-.986-.832-1.664C9.516 10.68 8.289 10 6 10c-2.29 0-3.516.68-4.168 1.332-.678.678-.83 1.418-.832 1.664h10z"/>
+        <path fill-rule="evenodd" d="M13.5 5a.5.5 0 0 1 .5.5V7h1.5a.5.5 0 0 1 0 1H14v1.5a.5.5 0 0 1-1 0V8h-1.5a.5.5 0 0 1 0-1H13V5.5a.5.5 0 0 1 .5-.5z"/>
+    </svg>
+    Agregar cliente a la empresa
+</button>
+<!-- Modals -->
+<ng-template #clientModal>
+    <div class="modal-header">
+        <h4 class="modal-title pull-left"></h4>
+        <button type="button" class="close pull-right" aria-label="Close" (click)="modalReference.hide()"><span aria-hidden="true">&times;</span></button>
+    </div>
+    <div class="modal-body">
+        <h2 class="text-dark mt-2">Agregar cliente</h2>
+        <p class="mt-1">Complete los campos del formulario para agregar un nuevo cliente al sistema</p>        
+        <form [formGroup]="clientsForm">
+            <div class="row justify-content-center">
+                <div class="col-12 col-sm-12 col-md-12 col-lg-4 col-xl-4">
+                    <div class="form-group">
+                        <label for="formGroupExampleInput" class="text-dark">Nombre del cliente</label>
+                        <input type="text" class="form-control customInput" id="formGroupExampleInput" placeholder="Pedro Sosa" formControlName="name">
+                    </div>
+                </div>
+                <div class="col-12 col-sm-12 col-md-12 col-lg-4 col-xl-4">
+                    <div class="form-group">
+                        <label for="exampleInputEmail1" class="text-dark">Correo electrónico</label>
+                        <input type="email" class="form-control customInput" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="some@example.com" formControlName="email">
+                    </div>
+                </div>
+                <div class="col-12 col-sm-12 col-md-12 col-lg-4 col-xl-4">
+                    <div class="form-group">
+                        <label for="exampleInputEmail1" class="text-dark">Fecha de nacimiento</label>
+                        <input type="date" class="form-control customInput" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="some@example.com" formControlName="birthDay">
+                    </div>
+                </div>
+                <div class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
+                    <h3 class="m-0 p-0 mt-2">Direcciones</h3>
+                    <p class="m-0 p-0">Agregue las direcciones del cliente</p>
+                    <div class="addressContainer" formArrayName="address">
+                        <div class="row justify-content-center" *ngFor="let address of addressForms.controls; let addressPosition = index" [formGroupName]="addressPosition">
+                            <div class="col-12 col-sm-12 col-md-12 col-lg-4 col-xl-4">
+                                <div class="form-group">
+                                    <!-- <label for="formGroupExampleInput" class="text-dark">Nombre del cliente</label> -->
+                                    <input type="address" class="form-control customInput" id="formGroupExampleInput" placeholder="Ciudad" formControlName="city">
+                                </div>
+                            </div>
+                            <div class="col-12 col-sm-12 col-md-12 col-lg-4 col-xl-4">
+                                <div class="form-group">
+                                    <!-- <label for="exampleInputEmail1" class="text-dark">Correo electrónico</label> -->
+                                    <input type="address" class="form-control customInput" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Calle" formControlName="street">
+                                </div>
+                            </div>
+                            <div class="col-12 col-sm-12 col-md-12 col-lg-2 col-xl-2">
+                                <div class="form-group">
+                                    <!-- <label for="exampleInputEmail1" class="text-dark">Fecha de nacimiento</label> -->
+                                    <input type="number" class="form-control customInput" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Número" formControlName="number">
+                                </div>
+                            </div>
+                            <div class="col-12 col-sm-12 col-md-12 col-lg-2 col-xl-2">
+                                <button class="btn btn-lg btn-block bg-danger text-center text-white mt-2 mb-2 mr-3" (click)="deleteAddress(addressPosition)">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash" viewBox="0 0 16 16">
+                                        <path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6z"/>
+                                        <path fill-rule="evenodd" d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1zM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118zM2.5 3V2h11v1h-11z"/>
+                                    </svg>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+        <button class="btn bg-success text-center text-white mt-2 mb-2 mr-3" [disabled]="clientsForm.invalid" (click)="createClient()">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-save mr-2" viewBox="0 0 16 16">
+                <path d="M2 1a1 1 0 0 0-1 1v12a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H9.5a1 1 0 0 0-1 1v7.293l2.646-2.647a.5.5 0 0 1 .708.708l-3.5 3.5a.5.5 0 0 1-.708 0l-3.5-3.5a.5.5 0 1 1 .708-.708L7.5 9.293V2a2 2 0 0 1 2-2H14a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V2a2 2 0 0 1 2-2h2.5a.5.5 0 0 1 0 1H2z"/>
+            </svg>
+            Agregar cliente al sistema
+        </button>
+        <button class="btn blueBackground text-center text-white mt-2 mb-2" (click)="addAddress()">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-house mr-2" viewBox="0 0 16 16">
+                <path fill-rule="evenodd" d="M2 13.5V7h1v6.5a.5.5 0 0 0 .5.5h9a.5.5 0 0 0 .5-.5V7h1v6.5a1.5 1.5 0 0 1-1.5 1.5h-9A1.5 1.5 0 0 1 2 13.5zm11-11V6l-2-2V2.5a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5z"/>
+                <path fill-rule="evenodd" d="M7.293 1.5a1 1 0 0 1 1.414 0l6.647 6.646a.5.5 0 0 1-.708.708L8 2.207 1.354 8.854a.5.5 0 1 1-.708-.708L7.293 1.5z"/>
+            </svg>
+            Agregar dirección al cliente
+        </button>
+    </div>
+</ng-template>
+<!-- Modals -->

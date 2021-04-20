@@ -31,7 +31,6 @@ export class DashboardComponent implements OnInit {
     this.userAuth.onAuthStateChanged((userData) => {
       const userId = userData.uid;
       this.authService.returnUserData(userId).subscribe((userData) => {
-        console.log(userData);
         this.userData = userData;
       });
     })
