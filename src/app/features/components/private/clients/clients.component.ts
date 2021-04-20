@@ -48,7 +48,7 @@ export class ClientsComponent implements OnInit {
   showClientModal(clientModal: TemplateRef<any>): void {
     // Inicializando formulario
     this.clientsForm = this.formBuilder.group({
-      name: ['', [Validators.required, Validators.minLength(2), Validators.maxLength(35)]],
+      name: ['', [Validators.required, Validators.minLength(1), Validators.maxLength(35)]],
       email: ['', [Validators.required, Validators.email]],
       birthDay: ['', [Validators.required]],
       address: this.formBuilder.array([]),
@@ -100,21 +100,23 @@ export class ClientsComponent implements OnInit {
   showEditionModal(editionModal: TemplateRef<any>, client): void {
     // Inicializando formulario
     this.editionForm = this.formBuilder.group({
-      name: [client.name, [Validators.required, Validators.minLength(2), Validators.maxLength(35)]],
+      name: [client.name, [Validators.required, Validators.minLength(1), Validators.maxLength(35)]],
       email: [client.email, [Validators.required, Validators.email]],
       birthDay: [client.birthDay, [Validators.required]],
       address: this.formBuilder.array([]),
     });
     // Inicializando formulario
     // Precargando data dinamica del formulario
-    for (let index = 0; index < client.addressList.length; index++) {
-      const element = client.addressList[index];
-      const address = this.formBuilder.group({
-        city: [element.city, [Validators.required]],
-        street: [element.street, [Validators.required]],
-        number: [element.number, [Validators.required]],
-      });
-      this.addressEditionForms.push(address);
+    if (client.addressList != null || client.addressList != null) {
+      for (let index = 0; index < client.addressList.length; index++) {
+        const element = client.addressList[index];
+        const address = this.formBuilder.group({
+          city: [element.city, [Validators.required]],
+          street: [element.street, [Validators.required]],
+          number: [element.number, [Validators.required]],
+        });
+        this.addressEditionForms.push(address);
+      }
     }
     // Precargando data dinamica del formulario
     this.modalReference = this.modalService.show(editionModal, this.modalConfig);
